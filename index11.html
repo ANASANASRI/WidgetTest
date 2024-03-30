@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Host Website</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="header">
+            <h2>WIDGET TEST HERE</h2>
+          </div>
+          
+          <div class="row">
+            <div class="leftcolumn">
+              <div class="card">
+                <h2>TITLE HEADING</h2>
+                <h5>M2t</h5>
+                <div class="fakeimg" style="height:200px;">Image</div>
+                <p>Some text..</p>
+              </div>
+              <div class="card">
+                <h2>TITLE HEADING</h2>
+                <h5>Title description, Sep 2, 2017</h5>
+                <div class="fakeimg" style="height:200px;">Image</div>
+                <p>Some text..</p>
+              </div>
+            </div>
+            <div class="rightcolumn">
+              <div class="card">
+                <h2>Order</h2>
+                <div class="fakeimg" style="height:100px;">Image</div>
+                <br/>
+                <div id="content-behind-iframe">
+                    <button id="toggleButton">Payer avec aman pay</button>
+                    <!-- Additional content goes here -->
+                </div>
+              </div>
+              <div class="card">
+                <h3>Popular Post</h3>
+                <div class="fakeimg">Image</div><br>
+                <div class="fakeimg">Image</div><br>
+                <div class="fakeimg">Image</div>
+              </div>
+              <div class="card">
+                <h3>Follow Me</h3>
+                <p>Some text..</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="footer">
+            <div id="content-behind-iframe">
+                <button id="toggleButton">Toggle Iframe</button>
+                <!-- Additional content goes here -->
+            </div>
+          </div>
+        
+        
+        <iframe id="myiframe" src="https://anasanasri.github.io/autowidget/" frameborder="0"></iframe>
+    
+        <script>
+            document.getElementById("toggleButton").addEventListener("click", function() {
+                var iframe = document.getElementById("myiframe");
+                if (iframe.style.display === "none") {
+                    iframe.style.display = "block";
+                } else {
+                    iframe.style.display = "none";
+                }
+            });
+    
+            // Add event listener to close button inside the iframe
+            window.addEventListener("message", function(event) {
+                if (event.data === "closeWidget") {
+                    document.getElementById("myiframe").style.display = "none";
+                }
+            });
+        </script>
+
+</body>
+</html>
+
+<!-- <script id="amanpay-js" 
+src=“https:/....../widget.js” 
+></script> -->

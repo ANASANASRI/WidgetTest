@@ -8,7 +8,7 @@
     var container = document.getElementById("content-behind-iframe");
     container.appendChild(button);
 
-    // Add event listener to display the widget iframe
+    // Click 
     button.addEventListener("click", function() {
         var iframe = document.getElementById("myiframe");
         if (!iframe) {
@@ -23,10 +23,27 @@
         }
     });
 
-    // Add event listener to close button inside the iframe
+    //
     window.addEventListener("message", function(event) {
         if (event.data === "closeWidget") {
             document.getElementById("myiframe").style.display = "none";
         }
     });
+    
+    // Dynamically inject CSS styles
+    var styles = `
+        #toggleButton {
+            background-color: green;
+            color: white;
+            border: round 1px solid;
+            padding: 10px 20px;
+            cursor: pointer;
+            /* Add any other styles you desire */
+        }
+    `;
+
+    var styleElement = document.createElement("style");
+    styleElement.textContent = styles;
+    document.head.appendChild(styleElement);
+
 });
