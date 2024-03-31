@@ -55,6 +55,9 @@ var scriptElement = document.getElementById('paypik');
 var accessKey = scriptElement.getAttribute('data-access_key');
 var host = scriptElement.getAttribute('data-host');
 
+// Log the data
+console.log("Data to be sent to Angular project:", { accessKey, host });
+
 // Send the values to your Angular project
 var url = 'https://anasanasri.github.io/autowidget/';
 var data = {
@@ -75,6 +78,4 @@ fetch(url, {
   console.error('Error sending data to Angular project:', error);
 });
 
-console.log("hhhhhhhhhhhhhhhhhhhh",data);
-// Posting data to Angular project
 });
