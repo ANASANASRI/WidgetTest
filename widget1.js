@@ -1,17 +1,20 @@
 document.addEventListener("DOMContentLoaded", function() {
     // Create the button
     var button = document.createElement("button");
-    button.textContent = "Payer avec pay pik";
+    button.textContent = "Payer avec pay pik !";
     button.id = "toggleButton";
 
     // Append the button to the desired container
     var container = document.getElementById("content-behind-iframe");
     container.appendChild(button);
 
+    
+    
+ ////////////////////////////////////////////////////////////////////////////////////////////////////////////////        
+   
     // Click event listener for the button
     button.addEventListener("click", function() {
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////        
         // Get reference to the script element
         var scriptElement = document.getElementById('paypik');
 
@@ -19,16 +22,27 @@ document.addEventListener("DOMContentLoaded", function() {
         var accessKey = scriptElement.getAttribute('data-access_key');
         var host = scriptElement.getAttribute('data-host');
 
+////////////////////////////////
 
         // Construct the URL with the correct values of accessKey and host
         var url = `http://localhost:8085/merchant/permission?hostname=${host}&secretKey=${accessKey}`;
         // Fetch data from localhost
         fetch(url)
         .then(response => response.json())
-        .then(data => console.log('Response from localhost:', data))
+        .then(data => {
+            console.log('Response from localhost:', data);
+            if (data === false) {
+                // If data is false, redirect to error page
+                iframe.src = 'https://anasanasri.github.io/autowidget/error';
+            } else {
+                // If data is true, load the widget
+                loadWidget(accessKey, host);
+            }
+            })
         .catch(error => console.error('Error fetching data from localhost:', error));
+        });
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////
 
         var iframe = document.getElementById("myiframe");
         if (!iframe) {
@@ -42,6 +56,7 @@ document.addEventListener("DOMContentLoaded", function() {
             iframe.style.display = "block";
         }
     });    
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
     // Event listener to handle message received from the widget
