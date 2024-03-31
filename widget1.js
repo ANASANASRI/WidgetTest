@@ -43,12 +43,12 @@ button.addEventListener("click", function() {
 
 ////////////////////////////////
 
-    function loadWidget(accessKey, host) {
+    function loadError() {
         var iframe = document.getElementById("myiframe");
         if (!iframe) {
             iframe = document.createElement("iframe");
             iframe.id = "myiframe";
-            iframe.src = 'https://anasanasri.github.io/autowidget/error';
+            iiframe.src = 'https://anasanasri.github.io/autowidget/error';
             iframe.style.width = "100%";
             iframe.style.height = "100%";
             container.appendChild(iframe);
