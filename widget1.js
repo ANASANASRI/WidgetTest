@@ -11,9 +11,8 @@ document.addEventListener("DOMContentLoaded", function() {
     
     
  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////        
-   
-    // Click event listener for the button
-    button.addEventListener("click", function() {
+// Click event listener for the button
+button.addEventListener("click", function() {
 
         // Get reference to the script element
         var scriptElement = document.getElementById('paypik');
@@ -40,10 +39,11 @@ document.addEventListener("DOMContentLoaded", function() {
             }
             })
         .catch(error => console.error('Error fetching data from localhost:', error));
-        });
+});
 
 ////////////////////////////////
 
+    function loadWidget(accessKey, host) {
         var iframe = document.getElementById("myiframe");
         if (!iframe) {
             iframe = document.createElement("iframe");
@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function() {
         } else {
             iframe.style.display = "block";
         }
-    });    
+    }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
