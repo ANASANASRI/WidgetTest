@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
     // Create the button
     var button = document.createElement("button");
-    button.textContent = "Payer avec pay pik !";
+    button.textContent = "Payer avec pay pik !!";
     button.id = "toggleButton";
 
     // Append the button to the desired container
