@@ -1,4 +1,6 @@
  document.addEventListener("DOMContentLoaded", function() {
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Create the button
     var button = document.createElement("button");
     button.textContent = "Payer avec aman pay";
@@ -45,5 +47,17 @@
     var styleElement = document.createElement("style");
     styleElement.textContent = styles;
     document.head.appendChild(styleElement);
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Extracting data-access_key and data-host attributes
+var accessKey = document.getElementById("paypik").getAttribute("data-access_key");
+var host = document.getElementById("paypik").getAttribute("data-host");
 
+// Sending data to Angular project
+var data = {
+    accessKey: accessKey,
+    host: host
+};
+
+// Posting data to Angular project
+window.parent.postMessage(data, "https://anasanasri.github.io/autowidget/");
 });
