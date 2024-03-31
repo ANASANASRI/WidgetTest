@@ -48,16 +48,33 @@
     styleElement.textContent = styles;
     document.head.appendChild(styleElement);
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Extracting data-access_key and data-host attributes
-var accessKey = document.getElementById("paypik").getAttribute("data-access_key");
-var host = document.getElementById("paypik").getAttribute("data-host");
+// Get reference to the script element
+var scriptElement = document.getElementById('paypik');
 
-// Sending data to Angular project
+// Get the values of data-access_key and data-host attributes
+var accessKey = scriptElement.getAttribute('data-access_key');
+var host = scriptElement.getAttribute('data-host');
+
+// Send the values to your Angular project
+var url = 'https://anasanasri.github.io/autowidget/';
 var data = {
-    accessKey: accessKey,
-    host: host
+  accessKey: accessKey,
+  host: host
 };
 
+// Using fetch to send data to Angular project
+fetch(url, {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(data)
+}).then(function(response) {
+  console.log('Data sent successfully to Angular project');
+}).catch(function(error) {
+  console.error('Error sending data to Angular project:', error);
+});
+
+console.log("hhhhhhhhhhhhhhhhhhhh",data);
 // Posting data to Angular project
-window.parent.postMessage(data, "https://anasanasri.github.io/autowidget/");
 });
