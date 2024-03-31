@@ -48,7 +48,7 @@ button.addEventListener("click", function() {
         if (!iframe) {
             iframe = document.createElement("iframe");
             iframe.id = "myiframe";
-            iframe.src = 'https://anasanasri.github.io/autowidget/error';
+            iframe.src = 'https://anasanasri.github.io/errorpermission/';
             iframe.style.width = "100%";
             iframe.style.height = "100%";
             container.appendChild(iframe);
