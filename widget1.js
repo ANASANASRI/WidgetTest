@@ -32,7 +32,7 @@ button.addEventListener("click", function() {
             console.log('Response from localhost:', data);
             if (data === false) {
                 // If data is false, redirect to error page
-                iframe.src = 'https://anasanasri.github.io/autowidget/error';
+                loadError();
             } else {
                 // If data is true, load the widget
                 loadWidget(accessKey, host);
@@ -42,6 +42,22 @@ button.addEventListener("click", function() {
 });
 
 ////////////////////////////////
+
+    function loadWidget(accessKey, host) {
+        var iframe = document.getElementById("myiframe");
+        if (!iframe) {
+            iframe = document.createElement("iframe");
+            iframe.id = "myiframe";
+            iframe.src = 'https://anasanasri.github.io/autowidget/error';
+            iframe.style.width = "100%";
+            iframe.style.height = "100%";
+            container.appendChild(iframe);
+        } else {
+            iframe.style.display = "block";
+        }
+    }
+
+    //
 
     function loadWidget(accessKey, host) {
         var iframe = document.getElementById("myiframe");
