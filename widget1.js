@@ -56,26 +56,18 @@ var accessKey = scriptElement.getAttribute('data-access_key');
 var host = scriptElement.getAttribute('data-host');
 
 // Log the data
-console.log("Data to be sent to Angular project:", { accessKey, host });
+console.log("!! Data to be sent to Angular project:", { accessKey, host });
 
-// Send the values to your Angular project
-var url = 'https://anasanasri.github.io/autowidget/';
-var data = {
-  accessKey: accessKey,
-  host: host
-};
+// Construct the URL with query parameters
+var url = 'https://anasanasri.github.io/autowidget/?accessKey=' + encodeURIComponent(accessKey) + '&host=' + encodeURIComponent(host);
 
-// Using fetch to send data to Angular project
-fetch(url, {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify(data)
-}).then(function(response) {
-  console.log('Data sent successfully to Angular project');
-}).catch(function(error) {
-  console.error('Error sending data to Angular project:', error);
-});
+// Using fetch to send data to Angular project using GET request
+fetch(url)
+  .then(function(response) {
+    console.log('Data sent successfully to Angular project');
+  })
+  .catch(function(error) {
+    console.error('Error sending data to Angular project:', error);
+  });
 
 });
