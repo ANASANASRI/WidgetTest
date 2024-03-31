@@ -10,6 +10,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Click event listener for the button
     button.addEventListener("click", function() {
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////        
         // Get reference to the script element
         var scriptElement = document.getElementById('paypik');
 
@@ -19,6 +21,16 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // Log the data
         console.log("Data to be sent to Angular project:", { accessKey, host });
+
+
+        // Construct the URL with the correct values of accessKey and host
+var url = `http://localhost:8085/merchant/permission?hostname=${host}&secretKey=${accessKey}`;
+
+// Fetch data from localhost
+fetch(url)
+  .then(response => response.json())
+  .then(data => console.log('Response from localhost:', data))
+  .catch(error => console.error('Error fetching data from localhost:', error));
 
         // Construct the URL with query parameters
         var url = 'https://anasanasri.github.io/autowidget/?accessKey=' + encodeURIComponent(accessKey) + '&host=' + encodeURIComponent(host);
@@ -34,6 +46,7 @@ document.addEventListener("DOMContentLoaded", function() {
           .catch(function(error) {
             console.error('Error sending data to Angular project:', error);
           });
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         var iframe = document.getElementById("myiframe");
         if (!iframe) {
