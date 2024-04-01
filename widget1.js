@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     
     
+    
  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////        
 // Click event listener for the button
 button.addEventListener("click", function() {
@@ -17,25 +18,38 @@ button.addEventListener("click", function() {
         // Get reference to the script element
         var scriptElement = document.getElementById('paypik');
 
-        // Get the values of data-access_key and data-host attributes
+        // Get data-attributes
         var accessKey = scriptElement.getAttribute('data-access_key');
-        var host = scriptElement.getAttribute('data-host');
+        var merchantId = scriptElement.getAttribute('data-merchant_id');
+        var orderId = scriptElement.getAttribute('data-order_id');
+        var orderDescription = scriptElement.getAttribute('data-order_description');
+        var productsIds = scriptElement.getAttribute('data-products_ids');
+        var amount = scriptElement.getAttribute('data-amount');
+        var currency = scriptElement.getAttribute('data-currency');
+        var hmac = scriptElement.getAttribute('data-hmac');
+        var redirectUrl = scriptElement.getAttribute('data-redirect_url');
+        
+        //
+        var currentURL = window.location.href;    console.log(currentURL);
+        
+        // Log HMAC value
+        console.log("HMAC: " + hmac);
 
-////////////////////////////////
+//////////////////////////////// Test host and access key
 
-        // Construct the URL with the correct values of accessKey and host
-        var url = `http://localhost:8085/merchant/permission?hostname=${host}&secretKey=${accessKey}`;
+
+        var url = `http://localhost:8085/merchant/permission?hostname=${currentURL}&secretKey=${accessKey}&merchantId=${merchantId}&orderId=${orderId}&amount=${amount}&currency=${currency}&hmac=${hmac}`;
         // Fetch data from localhost
         fetch(url)
         .then(response => response.json())
         .then(data => {
-            console.log('Response from localhost:', data);
+            console.log('Response Permission:', data);
             if (data === false) {
                 // If data is false, redirect to error page
                 loadError();
             } else {
                 // If data is true, load the widget
-                loadWidget(accessKey, host);
+                loadWidget(accessKey, currentURL, merchantId, orderId, orderDescription, productsIds, amount, currency, hmac, redirectUrl);
             }
             })
         .catch(error => console.error('Error fetching data from localhost:', error));
@@ -59,12 +73,12 @@ button.addEventListener("click", function() {
 
     //
 
-    function loadWidget(accessKey, host) {
+    function loadWidget(accessKey, currentURL, merchantId, orderId, orderDescription, productsIds, amount, currency, hmac, redirectUrl) {
         var iframe = document.getElementById("myiframe");
         if (!iframe) {
             iframe = document.createElement("iframe");
             iframe.id = "myiframe";
-            iframe.src = `https://anasanasri.github.io/autowidget/?access_key=${accessKey}&host=${host}`;
+            iframe.src = `https://anasanasri.github.io/autowidget/?access_key=${accessKey}&host=${currentURL}&merchant_id=${merchantId}&order_id=${orderId}&order_description=${orderDescription}&products_ids=${productsIds}&amount=${amount}&currency=${currency}&hmac=${hmac}&redirect_url=${redirectUrl}`;
             iframe.style.width = "100%";
             iframe.style.height = "100%";
             container.appendChild(iframe);
@@ -72,6 +86,7 @@ button.addEventListener("click", function() {
             iframe.style.display = "block";
         }
     }
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
