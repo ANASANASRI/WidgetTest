@@ -15,10 +15,10 @@ document.addEventListener("DOMContentLoaded", function() {
 // Click event listener for the button
 button.addEventListener("click", function() {
 
-        // Get reference to the script element
+        // 
         var scriptElement = document.getElementById('paypik');
 
-        // Get data-attributes
+        // 
         var accessKey = scriptElement.getAttribute('data-access_key');
         var merchantId = scriptElement.getAttribute('data-merchant_id');
         var orderId = scriptElement.getAttribute('data-order_id');
@@ -30,29 +30,34 @@ button.addEventListener("click", function() {
         var redirectUrl = scriptElement.getAttribute('data-redirect_url');
         
         //
-        var currentURL = window.location.href;    console.log(currentURL);
+        var currentURL = window.location.href;    
+        console.log(currentURL);
         
         // Log HMAC value
         console.log("HMAC: " + hmac);
 
-//////////////////////////////// Test host and access key
+//////////////////////////////// Test host and access key and hmac
 
+    var url = `http://localhost:8085/merchant/permission?hostname=${currentURL}&accessKey=${accessKey}&merchantId=${merchantId}&orderId=${orderId}&amount=${amount}&currency=${currency}&hmac=${hmac}`;
 
-        var url = `http://localhost:8085/merchant/permission?hostname=${currentURL}&secretKey=${accessKey}&merchantId=${merchantId}&orderId=${orderId}&amount=${amount}&currency=${currency}&hmac=${hmac}`;
-        // Fetch data from localhost
-        fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            console.log('Response Permission:', data);
-            if (data === false) {
-                // If data is false, redirect to error page
-                loadError();
-            } else {
-                // If data is true, load the widget
-                loadWidget(accessKey, currentURL, merchantId, orderId, orderDescription, productsIds, amount, currency, hmac, redirectUrl);
-            }
-            })
-        .catch(error => console.error('Error fetching data from localhost:', error));
+    // Fetch data from localhost
+    fetch(url)
+    .then(response => {
+        if (!response.ok) {
+        throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Response Permission:', data);
+        if (data === true && data.status !== 400) {
+        loadWidget(accessKey, currentURL, merchantId, orderId, orderDescription, productsIds, amount, currency, hmac, redirectUrl);
+        } else {
+        loadError(); // Redirect to error page
+        }
+    })
+    .catch(error => console.error('Error fetching data from localhost:', error));
+
 });
 
 ////////////////////////////////
