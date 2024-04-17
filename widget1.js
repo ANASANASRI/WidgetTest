@@ -44,6 +44,7 @@ button.addEventListener("click", function() {
     fetch(url)
     .then(response => {
         if (!response.ok) {
+        loadError();
         throw new Error('Network response was not ok');
         }
         return response.json();
