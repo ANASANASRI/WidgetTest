@@ -20,7 +20,7 @@ button.addEventListener("click", function() {
 
         // 
         var accessKey = scriptElement.getAttribute('data-access_key');
-        var merchantId = scriptElement.getAttribute('data-merchant_id');
+        var marchandId = scriptElement.getAttribute('data-marchand_id');
         var orderId = scriptElement.getAttribute('data-order_id');
         var orderDescription = scriptElement.getAttribute('data-order_description');
         var productsIds = scriptElement.getAttribute('data-products_ids');
@@ -38,7 +38,7 @@ button.addEventListener("click", function() {
 
 //////////////////////////////// Test host and access key and hmac
 
-    var url = `http://localhost:8085/merchant/permission?hostname=${currentURL}&accessKey=${accessKey}&merchantId=${merchantId}&orderId=${orderId}&amount=${amount}&currency=${currency}&hmac=${hmac}`;
+    var url = `http://localhost:8085/marchand/permission?hostname=${currentURL}&accessKey=${accessKey}&marchandId=${marchandId}&orderId=${orderId}&amount=${amount}&currency=${currency}&hmac=${hmac}`;
 
     // Fetch data from localhost
     fetch(url)
@@ -51,7 +51,7 @@ button.addEventListener("click", function() {
     .then(data => {
         console.log('Response Permission:', data);
         if (data === true && data.status !== 400) {
-        loadWidget(accessKey, currentURL, merchantId, orderId, orderDescription, productsIds, amount, currency, hmac, redirectUrl);
+        loadWidget(accessKey, currentURL, marchandId, orderId, orderDescription, productsIds, amount, currency, hmac, redirectUrl);
         } else {
         loadError(); // Redirect to error page
         }
@@ -78,12 +78,12 @@ button.addEventListener("click", function() {
 
     //
 
-    function loadWidget(accessKey, currentURL, merchantId, orderId, orderDescription, productsIds, amount, currency, hmac, redirectUrl) {
+    function loadWidget(accessKey, currentURL, marchandId, orderId, orderDescription, productsIds, amount, currency, hmac, redirectUrl) {
         var iframe = document.getElementById("myiframe");
         if (!iframe) {
             iframe = document.createElement("iframe");
             iframe.id = "myiframe";
-            iframe.src = `https://anasanasri.github.io/autowidget/?access_key=${accessKey}&host=${currentURL}&merchant_id=${merchantId}&order_id=${orderId}&order_description=${orderDescription}&products_ids=${productsIds}&amount=${amount}&currency=${currency}&hmac=${hmac}&redirect_url=${redirectUrl}`;
+            iframe.src = `https://anasanasri.github.io/autowidget/?access_key=${accessKey}&host=${currentURL}&marchand_id=${marchandId}&order_id=${orderId}&order_description=${orderDescription}&products_ids=${productsIds}&amount=${amount}&currency=${currency}&hmac=${hmac}&redirect_url=${redirectUrl}`;
             iframe.style.width = "100%";
             iframe.style.height = "100%";
             container.appendChild(iframe);
