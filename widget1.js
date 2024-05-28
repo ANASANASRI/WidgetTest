@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
     // Create the button
     var button = document.createElement("button");
-    button.textContent = "Payer avec pay pik";
+    button.textContent = "Payer avec PayPik";
     button.id = "toggleButton";
 
     // Append the button to the desired container
@@ -106,8 +106,9 @@ button.addEventListener("click", function() {
     // Dynamically inject CSS styles
     var styles = `
         #toggleButton {
-            background-color: green;
+            background-color: #5BC084;
             color: white;
+            border-radius: 10px;
             border: round 1px solid;
             padding: 10px 20px;
             cursor: pointer;

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Host Website</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="header">
+    <h2>WIDGET TEST HERE !!!</h2>
+</div>
+
+<div class="row">
+    <div class="leftcolumn">
+        <div class="card">
+            <h2>TITLE HEADING</h2>
+            <h5>M2t</h5>
+            <div class="fakeimg" style="height:200px;">Image</div>
+            <p>Some text..</p>
+        </div>
+        <div class="card">
+            <h2>TITLE HEADING</h2>
+            <h5>Title description, Sep 2, 2017</h5>
+            <div class="fakeimg" style="height:200px;">Image</div>
+            <p>Some text..</p>
+        </div>
+    </div>
+    <div class="rightcolumn">
+        <div class="card">
+            <h2>Order</h2>
+            <div class="fakeimg" style="height:100px;">Image</div>
+            <br/>
+
+            <!-- //////////////////////////////////////////////////////////////////////// -->
+            <div id="content-behind-iframe"></div>
+            <!-- //////////////////////////////////////////////////////////////////////// -->
+
+        </div>
+        <div class="card">
+            <h3>Popular Post</h3>
+            <div class="fakeimg">Image</div><br>
+            <div class="fakeimg">Image</div><br>
+            <div class="fakeimg">Image</div>
+        </div>
+        <div class="card">
+            <h3>Follow Me</h3>
+            <p>Some text..</p>
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    <div >
+        By M2T
+    </div>
+</div>
+
+<!-- widget -->
+<script id="paypik" 
+    src="./widget1.js"
+    data-marchand_id="7" 
+    data-access_key="eadbfc7e23ec00" 
+    data-order_id="111" 
+    data-order_description="order description" 
+    data-products_ids="[1,2,3,4,5,6,7,8,9]" 
+    data-amount="1000.0" 
+    data-currency="MAD" 
+    data-hmac=""
+    data-redirect_url="">
+</script>
+<!-- . -->
+
+<!-- ////// -->
+<!-- Add this line to include CryptoJS via CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+
+<script>
+    var marchand_id = "7";
+    var order_id = "111";
+    var amount = "1000.0";
+    var currency = "MAD";
+    var my_secret_key = "780ff2a3ca26782265f4e7b719429c315846019c5ab9fb819aeb6ff8bb55309";
+
+    var message = marchand_id + ":" + order_id + ":" + amount + ":" + currency;
+    var hmac = CryptoJS.HmacSHA1(message, my_secret_key).toString();
+    
+    var paypik = document.getElementById("paypik");
+    paypik.setAttribute("data-hmac", hmac);
+</script>
+<!-- ////// -->
+<!-- CryptoJS.HmacSHA1(marchand_id + ':' + order_id + ':' + amount + ':' + currency, '5ec229cbd6f2f9fc1c38b67e6ada5035358367384c0d2b86d7eb6a0a2fa89708').toString() -->
+<!-- 1:111:1000:MAD // 5ec229cbd6f2f9fc1c38b67e6ada5035358367384c0d2b86d7eb6a0a2fa89708 //6f02ea4b4b579b83bf640fc4e7e4e9afe905e27f  -->
+
+</body>
+</html>
+
