@@ -1,15 +1,26 @@
 document.addEventListener("DOMContentLoaded", function() {
+    
     // Create the button
     var button = document.createElement("button");
-    button.textContent = "Payer avec PayPik";
     button.id = "toggleButton";
+    button.style.display = "inline-flex"; // Set display to inline-flex
+
+    // Create the image element for the logo
+    var logo = document.createElement("img");
+    logo.src = "https://i.ibb.co/gFZGbV3/Logopng.png"; // Set the path to your logo image
+    logo.alt = "PayPik Logo";
+    logo.width = "20"; // Set the width of the logo (adjust as needed)
+    logo.style.marginRight = "10px"; // Add margin between the image and button text
+
+    // Append the logo to the button first
+    button.appendChild(logo);
+
+    // Set the button text
+    button.appendChild(document.createTextNode("Payer avec PayPik"));
 
     // Append the button to the desired container
     var container = document.getElementById("content-behind-iframe");
     container.appendChild(button);
-
-    
-    
     
  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////        
 // Click event listener for the button
@@ -105,20 +116,24 @@ button.addEventListener("click", function() {
 
     // Dynamically inject CSS styles
     var styles = `
-        #toggleButton {
-            background-color: #5BC084;
-            color: white;
-            border-radius: 10px;
-            border: round 1px solid;
-            padding: 10px 20px;
-            cursor: pointer;
-            /* Add any other styles you desire */
-        }
+    #toggleButton {
+        background-color: #5BC084;
+        color: white;
+        border-radius: 10px;
+        border: round 1px solid;
+        padding: 10px 20px;
+        cursor: pointer;
+        /* Add any other styles you desire */
+    }
+    #toggleButton:hover {
+        background-color: #3E8D5E;
+    }
     `;
 
     var styleElement = document.createElement("style");
     styleElement.textContent = styles;
     document.head.appendChild(styleElement);
+
 });
 
 
