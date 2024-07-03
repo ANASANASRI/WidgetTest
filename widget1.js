@@ -68,7 +68,10 @@ button.addEventListener("click", function() {
         loadError(); // Redirect to error page
         }
     })
-    .catch(error => console.error('Error fetching data from localhost:', error));
+    .catch(error => {
+        console.error('Error fetching data from localhost:', error);
+        loadError(); // Redirect to error page
+    });
 
 });
 
