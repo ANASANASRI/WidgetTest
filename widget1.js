@@ -126,6 +126,7 @@ button.addEventListener("click", function() {
         border: round 1px solid;
         padding: 10px 20px;
         cursor: pointer;
+        user-select: none;
         /* Add any other styles you desire */
     }
     #toggleButton:hover {

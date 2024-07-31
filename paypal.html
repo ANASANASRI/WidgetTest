@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Add meta tags for mobile and IE -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>PayPal Checkout Integration | Server Demo</title>
+    <script src="https://www.paypal.com/sdk/js?currency=USD&client-id=AQWbAzK6sUy3815sNoGI1uIXZ5Nwr2eP_Vcj6H16As6s4z6ckYbPs-bXaRYDmDSUESAL-FwWOvWiBcAS"></script>
+</head>
+
+<body>
+    <!-- Set up a container element for the button -->
+    <div id="paypal-button-container"></div>
+
+    <!-- Include the PayPal JavaScript SDK -->
+    <script src="https://www.paypal.com/sdk/js?currency=USD&client-id=AQWbAzK6sUy3815sNoGI1uIXZ5Nwr2eP_Vcj6H16As6s4z6ckYbPs-bXaRYDmDSUESAL-FwWOvWiBcAS"></script>
+
+    <script>
+        // Render the PayPal button into #paypal-button-container
+        paypal.Buttons({
+            // Call your server to set up the transaction
+            createOrder: function(data, actions) {
+                return fetch('/demo/checkout/api/paypal/order/create/', {
+                    method: 'post'
+                }).then(function(res) {
+                    return res.json();
+                }).then(function(orderData) {
+                    return orderData.id;
+                });
+            },
+
+            // Call your server to finalize the transaction
+            onApprove: function(data, actions) {
+                return fetch('/demo/checkout/api/paypal/order/' + data.orderID + '/capture/', {
+                    method: 'post'
+                }).then(function(res) {
+                    return res.json();
+                }).then(function(orderData) {
+                    // Handle different scenarios of transaction completion
+                    var errorDetail = Array.isArray(orderData.details) && orderData.details[0];
+
+                    if (errorDetail && errorDetail.issue === 'INSTRUMENT_DECLINED') {
+                        return actions.restart(); // Retry the payment
+                    }
+
+                    if (errorDetail) {
+                        var msg = 'Sorry, your transaction could not be processed.';
+                        if (errorDetail.description) msg += '\n\n' + errorDetail.description;
+                        if (orderData.debug_id) msg += ' (' + orderData.debug_id + ')';
+                        return alert(msg); // Show error message
+                    }
+
+                    // Successful capture!
+                    console.log('Capture result', orderData);
+                    var transaction = orderData.purchase_units[0].payments.captures[0];
+                    alert('Transaction ' + transaction.status + ': ' + transaction.id + '\n\nSee console for details');
+
+                    // Replace with your success handling logic, e.g., redirect or message display
+                });
+            },
+
+            // Handle errors during the process
+            onError: function(err) {
+                console.error('PayPal Error', err);
+                // Handle error gracefully, e.g., display an error message
+            }
+        }).render('#paypal-button-container');
+    </script>
+</body>
+
+</html>
